@@ -1,0 +1,184 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\ABTest;
+use App\Models\ABTestAssignment;
+use App\Models\ABTestEvent;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
+class ABTestController extends Controller
+{
+    /**
+     * Get assignment for a specific A/B test
+     */
+    public function show(string $testId, Request $request): JsonResponse
+    {
+        // First try to find by ID (numeric)
+        if (is_numeric($testId)) {
+            $test = ABTest::active()->find($testId);
+        } else {
+            // Otherwise try to find by slug/name
+            $test = ABTest::active()->where('name', $testId)->first();
+        }
+
+        if (!$test) {
+            return response()->json(['error' => 'Test not found or not active'], 404);
+        }
+
+        // Get or generate session ID
+        $sessionId = $request->session()->get('ab_test_session_id');
+        if (!$sessionId) {
+            $sessionId = Str::uuid()->toString();
+            $request->session()->put('ab_test_session_id', $sessionId);
+        }
+
+        // Check if assignment already exists
+        $assignment = ABTestAssignment::where('a_b_test_id', $test->id)
+            ->where('session_id', $sessionId)
+            ->first();
+
+        if (!$assignment) {
+            // Assign variant deterministically based on session ID
+            $variant = $this->assignVariant($test->variants, $sessionId);
+            
+            $assignment = ABTestAssignment::create([
+                'a_b_test_id' => $test->id,
+                'variant' => $variant,
+                'session_id' => $sessionId,
+                'user_id' => auth()->id(),
+                'assigned_at' => now(),
+            ]);
+        }
+
+        return response()->json([
+            'test' => [
+                'id' => $test->id,
+                'name' => $test->name,
+                'description' => $test->description,
+                'variants' => $test->variants,
+            ],
+            'variant' => $assignment->variant,
+            'session_id' => $sessionId,
+        ]);
+    }
+
+    /**
+     * Track an A/B test event
+     */
+    public function track(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'test_id' => 'required',
+            'session_id' => 'required|string',
+            'event_type' => 'required|string',
+            'event_data' => 'nullable|array',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Find the test
+        $testId = $request->test_id;
+        if (is_numeric($testId)) {
+            $test = ABTest::find($testId);
+        } else {
+            $test = ABTest::where('name', $testId)->first();
+        }
+
+        if (!$test) {
+            return response()->json(['error' => 'Test not found'], 404);
+        }
+
+        // Find the assignment
+        $assignment = ABTestAssignment::where('a_b_test_id', $test->id)
+            ->where('session_id', $request->session_id)
+            ->first();
+
+        if (!$assignment) {
+            return response()->json(['error' => 'Assignment not found'], 404);
+        }
+
+        // Track the event
+        ABTestEvent::create([
+            'a_b_test_assignment_id' => $assignment->id,
+            'event_type' => $request->event_type,
+            'event_data' => $request->event_data,
+        ]);
+
+        return response()->json(['success' => true], 201);
+    }
+
+    /**
+     * List all A/B tests with metrics
+     */
+    public function index(): JsonResponse
+    {
+        try {
+            $tests = ABTest::all();
+            
+            return response()->json($tests->map(function ($test) {
+                $metrics = $test->getMetrics();
+                
+                return [
+                    'id' => $test->id,
+                    'name' => $test->name,
+                    'description' => $test->description,
+                    'variants' => collect($test->variants)->map(function ($variant) use ($metrics) {
+                        $variantId = $variant['id'];
+                        $variantMetrics = $metrics['variants'][$variantId] ?? ['assignments' => 0, 'conversions' => 0, 'conversion_rate' => 0];
+                        
+                        return [
+                            'variant_name' => $variantId,
+                            'assignments' => $variantMetrics['assignments'],
+                            'conversions' => $variantMetrics['conversions'],
+                            'conversion_rate' => $variantMetrics['conversion_rate'],
+                        ];
+                    })->toArray(),
+                    'status' => $test->active ? 'active' : 'draft',
+                    'start_date' => $test->start_date,
+                    'end_date' => $test->end_date,
+                    'created_at' => $test->created_at,
+                    'total_assignments' => $metrics['total_assignments'],
+                    'total_conversions' => $metrics['total_conversions'],
+                    'overall_conversion_rate' => $metrics['conversion_rate'],
+                ];
+            }));
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Get metrics for a specific A/B test
+     */
+    public function metrics(string $testId): JsonResponse
+    {
+        if (is_numeric($testId)) {
+            $test = ABTest::find($testId);
+        } else {
+            $test = ABTest::where('name', $testId)->first();
+        }
+
+        if (!$test) {
+            return response()->json(['error' => 'Test not found'], 404);
+        }
+
+        return response()->json($test->getMetrics());
+    }
+
+    /**
+     * Assign variant deterministically based on session ID
+     */
+    private function assignVariant(array $variants, string $sessionId): string
+    {
+        $hash = crc32($sessionId);
+        $index = abs($hash) % count($variants);
+        return $variants[$index];
+    }
+}
