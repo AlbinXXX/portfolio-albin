@@ -1,0 +1,23 @@
+[build]
+builder = "NIXPACKS"
+
+[build.env]
+NIXPACKS_METADATA = "php,laravel"
+
+[build.variables]
+PHP_VERSION = "8.3"
+NODE_VERSION = "20"
+
+[deploy]
+startCommand = "bash railway/init-app.sh"
+
+[deploy.variables]
+APP_ENV = "production"
+APP_DEBUG = "false"
+LOG_CHANNEL = "stderr"
+DB_CONNECTION = "pgsql"
+SESSION_DRIVER = "database"
+CACHE_DRIVER = "database"
+QUEUE_CONNECTION = "database"
+BROADCAST_DRIVER = "log"
+FILESYSTEM_DISK = "public"

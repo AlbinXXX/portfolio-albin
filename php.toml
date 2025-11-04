@@ -1,0 +1,20 @@
+extensions = [
+  "bcmath",
+  "ctype", 
+  "curl",
+  "dom",
+  "exif",
+  "fileinfo",
+  "filter",
+  "gd",
+  "hash",
+  "mbstring",
+  "openssl",
+  "pcre",
+  "pdo",
+  "pdo_pgsql",
+  "session",
+  "tokenizer",
+  "xml",
+  "zip"
+]
