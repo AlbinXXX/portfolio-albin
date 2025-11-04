@@ -53,11 +53,7 @@ const techLogos = [
     { node: <SiJavascript className="text-white" />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
 ];
 
-export default function Homepage({
-    canRegister = true,
-}: {
-    canRegister?: boolean;
-}) {
+export default function Homepage() {
     const { auth } = usePage<SharedData>().props;
 
     return (

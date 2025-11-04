@@ -6,7 +6,7 @@ NIXPACKS_METADATA = "php,laravel"
 
 [build.variables]
 PHP_VERSION = "8.3"
-NODE_VERSION = "20"
+NODE_VERSION = "22"
 
 [deploy]
 startCommand = "bash railway/init-app.sh"

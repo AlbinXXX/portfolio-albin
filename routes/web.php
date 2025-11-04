@@ -12,9 +12,7 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
-    return Inertia::render('Homepage', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
+    return Inertia::render('Homepage');
 })->name('home');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog');
