@@ -23,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
         // Force HTTPS in production
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
+            
+            // Trust all proxies (Railway uses load balancers)
+            $this->app['request']->setTrustedProxies(['*'], 
+                \Illuminate\Http\Request::HEADER_X_FORWARDED_FOR |
+                \Illuminate\Http\Request::HEADER_X_FORWARDED_HOST |
+                \Illuminate\Http\Request::HEADER_X_FORWARDED_PORT |
+                \Illuminate\Http\Request::HEADER_X_FORWARDED_PROTO |
+                \Illuminate\Http\Request::HEADER_X_FORWARDED_AWS_ELB
+            );
         }
     }
 }

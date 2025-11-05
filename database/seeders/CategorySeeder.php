@@ -16,38 +16,46 @@ class CategorySeeder extends Seeder
         $categories = [
             [
                 'name' => 'Web Development',
-                'description' => 'Articles about web development, frameworks, and best practices',
-                'color' => '#3B82F6', // Blue
-            ],
-            [
-                'name' => 'Laravel',
-                'description' => 'Deep dives into Laravel framework features and tutorials',
-                'color' => '#EF4444', // Red
+                'slug' => 'web-development',
+                'description' => null,
+                'color' => '#3B82F6',
+                'is_active' => true,
             ],
             [
                 'name' => 'React',
-                'description' => 'React development tips, hooks, and modern patterns',
-                'color' => '#06B6D4', // Cyan
+                'slug' => 'react',
+                'description' => null,
+                'color' => '#3B82F6',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Laravel',
+                'slug' => 'laravel',
+                'description' => null,
+                'color' => '#3B82F6',
+                'is_active' => true,
             ],
             [
                 'name' => 'TypeScript',
-                'description' => 'TypeScript guides and type-safe development practices',
-                'color' => '#8B5CF6', // Purple
+                'slug' => 'typescript',
+                'description' => null,
+                'color' => '#3B82F6',
+                'is_active' => true,
             ],
             [
-                'name' => 'DevOps',
-                'description' => 'Deployment, CI/CD, and infrastructure topics',
-                'color' => '#10B981', // Green
-            ],
-            [
-                'name' => 'Tutorial',
-                'description' => 'Step-by-step tutorials and guides',
-                'color' => '#F59E0B', // Yellow
+                'name' => 'Hardware Projects',
+                'slug' => 'hardware-projects',
+                'description' => 'Articles about hardware and embedded projects',
+                'color' => '#3B82F6',
+                'is_active' => true,
             ],
         ];
 
-        foreach ($categories as $category) {
-            Category::create($category);
+        foreach ($categories as $categoryData) {
+            Category::updateOrCreate(
+                ['slug' => $categoryData['slug']],
+                $categoryData
+            );
         }
     }
 }
