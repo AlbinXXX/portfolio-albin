@@ -6,7 +6,11 @@ set -e
 
 echo "🚀 Starting production initialization..."
 
-echo "🗄️  Running database migrations..."
+echo "� Creating SQLite database file..."
+mkdir -p /app/database
+touch /app/database/database.sqlite
+
+echo "�🗄️  Running database migrations..."
 php artisan migrate --force
 
 echo "🔗 Creating storage symlink..."
@@ -21,3 +25,6 @@ php artisan route:cache
 php artisan view:cache
 
 echo "✅ Production initialization complete!"
+
+echo "🚀 Starting Laravel server on port ${PORT:-8000}..."
+php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
