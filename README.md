@@ -51,7 +51,7 @@ If you'd like to use this portfolio template for your own projects or customize 
 
 **Albin Rushiti**
 - Email: albin.rushiti2004@gmail.com
-- Portfolio: [Live when deployed]
+- Portfolio: https://portfolio.mralbin.xyz
 
 ## 📄 License
 
