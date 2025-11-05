@@ -36,30 +36,31 @@ export default function Contact() {
                     />
                 </div>
                 
-                <div className="relative z-20 flex-1 px-6 py-20 mt-20">
+                                <div className="relative z-20 flex-1 px-4 sm:px-6 py-8 sm:py-12 mt-16 sm:mt-20">
                     <div className="max-w-7xl mx-auto">
-                        <div className="text-center mb-16">
-                            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                        <div className="text-center mb-6 sm:mb-8 md:mb-16">
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
                                 Get In Touch
                             </h1>
-                            <p className="text-lg md:text-xl text-white font-mono mb-8">
+                            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white font-mono mb-3 sm:mb-4 md:mb-8 px-2 break-all sm:break-normal">
                                 INSERT INTO conversations VALUES ('your_idea', 'my_expertise', 'amazing_results');
                             </p>
-                            <p className="text-white max-w-2xl mx-auto">
+                            <p className="text-white max-w-2xl mx-auto text-xs sm:text-sm md:text-base px-4">
                                 Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
                             </p>
                         </div>
+                    </div>
 
-                        <div className="flex justify-center">
-                            <div className="transform scale-75 md:scale-100">
-                                <ContactMagicBento />
-                            </div>
-                        </div>
+                    {/* Full width contact section */}
+                    <div className="w-full px-4 sm:px-6">
+                        <ContactMagicBento />
+                    </div>
 
-                        <div className="text-center mt-16">
-                            <div className="bg-black/40 backdrop-blur-sm rounded-lg border border-white/10 p-8 max-w-lg mx-auto">
-                                <h3 className="font-semibold text-white text-lg mb-4">Ready to Start Your Project?</h3>
-                                <p className="text-white/80">
+                    <div className="max-w-7xl mx-auto">
+                        <div className="text-center mt-6 sm:mt-8 md:mt-16 px-4">
+                            <div className="bg-black/40 backdrop-blur-sm rounded-lg border border-white/10 p-3 sm:p-4 md:p-8 max-w-lg mx-auto">
+                                <h3 className="font-semibold text-white text-sm sm:text-base md:text-lg mb-2 sm:mb-3 md:mb-4">Ready to Start Your Project?</h3>
+                                <p className="text-white/80 text-xs sm:text-sm md:text-base">
                                     From concept to deployment, I'll help you build something amazing. 
                                     Let's discuss your vision and make it reality.
                                 </p>
@@ -74,297 +75,151 @@ export default function Contact() {
 
 function ContactMagicBento() {
     return (
-        <div className="contact-bento">
-            <style>
-                {`
-                    .contact-bento .bento-section {
-                        max-width: 1200px;
-                        display: grid;
-                        grid-template-columns: repeat(6, 1fr);
-                        grid-template-rows: repeat(4, 200px);
-                        gap: 16px;
-                        padding: 16px;
-                    }
-                    
-                    .contact-bento .card {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        text-align: center;
-                        padding: 2rem;
-                        background: rgba(6, 0, 16, 0.9) !important;
-                        border: 1px solid rgba(167, 239, 158, 0.2);
-                        border-radius: 20px;
-                        transition: all 0.3s ease;
-                        position: relative;
-                        overflow: hidden;
-                    }
-                    
-                    .contact-bento .card:hover {
-                        transform: translateY(-4px);
-                        border-color: rgba(167, 239, 158, 0.5);
-                        box-shadow: 0 8px 25px rgba(167, 239, 158, 0.1);
-                    }
-                    
-                    .contact-bento .card-form {
-                        grid-column: 4 / 7;
-                        grid-row: 1 / 5;
-                        padding: 2rem;
-                        text-align: left;
-                        align-items: stretch;
-                        justify-content: flex-start;
-                    }
-                    
-                    .contact-bento .card-email {
-                        grid-column: 1 / 2;
-                        grid-row: 1;
-                    }
-                    
-                    .contact-bento .card-location {
-                        grid-column: 2 / 4;
-                        grid-row: 1;
-                    }
-                    
-                    .contact-bento .card-large {
-                        grid-column: 1 / 4;
-                        grid-row: 2 / 3;
-                    }
-                    
-                    .contact-bento .card-github {
-                        grid-column: 1;
-                        grid-row: 3;
-                    }
-                    
-                    .contact-bento .card-linkedin {
-                        grid-column: 2;
-                        grid-row: 3;
-                    }
-                    
-                    .contact-bento .card-availability {
-                        grid-column: 3;
-                        grid-row: 3;
-                    }
-                    
-                    .contact-bento .card-info {
-                        grid-column: 1 / 4;
-                        grid-row: 4;
-                        text-align: left;
-                        align-items: flex-start;
-                        justify-content: flex-start;
-                        padding: 1.5rem;
-                    }
-                    
-                    .contact-bento .card-icon {
-                        width: 36px;
-                        height: 36px;
-                        margin-bottom: 12px;
-                        color: #a7ef9e;
-                    }
-                    
-                    .contact-bento .card-icon-large {
-                        width: 48px;
-                        height: 48px;
-                        margin-bottom: 16px;
-                        color: #a7ef9e;
-                    }
-                    
-                    .contact-bento .card-title {
-                        font-size: 1.1rem;
-                        font-weight: 600;
-                        color: white;
-                        margin-bottom: 6px;
-                    }
-                    
-                    .contact-bento .card-title-large {
-                        font-size: 1.5rem;
-                        font-weight: 700;
-                        color: white;
-                        margin-bottom: 12px;
-                    }
-                    
-                    .contact-bento .card-description {
-                        font-size: 0.85rem;
-                        color: white;
-                        line-height: 1.4;
-                    }
-                    
-                    .contact-bento .card-description-large {
-                        font-size: 1rem;
-                        color: white;
-                        line-height: 1.5;
-                        text-align: center;
-                    }
-                    
-                    .contact-bento .card-link {
-                        color: #a7ef9e;
-                        text-decoration: none;
-                        transition: opacity 0.3s ease;
-                    }
-                    
-                    .contact-bento .card-link:hover {
-                        opacity: 0.8;
-                    }
-                    
-                    .contact-bento .form-title {
-                        font-size: 1.75rem;
-                        font-weight: 700;
-                        color: white;
-                        margin-bottom: 0.75rem;
-                        text-align: center;
-                    }
-                    
-                    .contact-bento .form-subtitle {
-                        font-size: 0.9rem;
-                        color: rgba(255, 255, 255, 0.8);
-                        margin-bottom: 2rem;
-                        text-align: center;
-                    }
-                    
-                    @media (max-width: 1200px) {
-                        .contact-bento .bento-section {
-                            grid-template-columns: repeat(3, 1fr);
-                            grid-template-rows: repeat(5, 180px);
-                            max-width: 900px;
-                        }
-                        
-                        .contact-bento .card-form {
-                            grid-column: 1 / 4;
-                            grid-row: 3 / 5;
-                        }
-                        
-                        .contact-bento .card-email {
-                            grid-column: 1;
-                            grid-row: 1;
-                        }
-                        
-                        .contact-bento .card-location {
-                            grid-column: 2;
-                            grid-row: 1;
-                        }
-                        
-                        .contact-bento .card-large {
-                            grid-column: 3;
-                            grid-row: 1;
-                        }
-                        
-                        .contact-bento .card-github {
-                            grid-column: 1;
-                            grid-row: 2;
-                        }
-                        
-                        .contact-bento .card-linkedin {
-                            grid-column: 2;
-                            grid-row: 2;
-                        }
-                        
-                        .contact-bento .card-availability {
-                            grid-column: 3;
-                            grid-row: 2;
-                        }
-                        
-                        .contact-bento .card-info {
-                            grid-column: 1 / 4;
-                            grid-row: 5;
-                        }
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .contact-bento .bento-section {
-                            grid-template-columns: 1fr;
-                            grid-template-rows: repeat(8, 160px);
-                            max-width: 400px;
-                        }
-                        
-                        .contact-bento .card-form,
-                        .contact-bento .card-email,
-                        .contact-bento .card-location,
-                        .contact-bento .card-large,
-                        .contact-bento .card-github,
-                        .contact-bento .card-linkedin,
-                        .contact-bento .card-availability,
-                        .contact-bento .card-info {
-                            grid-column: 1;
-                            grid-row: auto;
-                        }
-                        
-                        .contact-bento .card-form {
-                            grid-row: span 3;
-                        }
-                        
-                        .contact-bento .card {
-                            padding: 1.5rem;
-                        }
-                    }
-                `}
-            </style>
-            
-                        <div className="bento-section">
-                <div className="card card-form">
-                    <div className="form-title">Send a Message</div>
-                    <div className="form-subtitle">
-                        Fill out the form below and I'll get back to you as soon as possible.
+        <div className="w-full">
+            {/* Desktop Layout: 2 columns - Full width */}
+            <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8 max-w-none">
+                {/* Left side - Contact Cards */}
+                <div className="grid grid-cols-3 grid-rows-4 gap-4 h-fit">
+                    {/* Email Card */}
+                    <div className="col-span-1 row-span-1 bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Mail className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">Email</h3>
+                        <p className="text-white/80 text-sm">Response within 24 hours</p>
                     </div>
+
+                    {/* Location Card */}
+                    <div className="col-span-2 row-span-1 bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <MapPin className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">Location</h3>
+                        <p className="text-white/80 text-sm">North Macedonia, Europe</p>
+                        <p className="text-white/80 text-sm mt-1">Remote worldwide</p>
+                    </div>
+
+                    {/* Let's Connect Card */}
+                    <div className="col-span-3 row-span-1 bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Clock className="w-12 h-12 text-primary mb-4" />
+                        <h3 className="text-white font-bold text-xl mb-3">Let's Connect</h3>
+                        <p className="text-white/80 text-base">
+                            I'm always excited to work on new projects and meet interesting people. 
+                            Let's discuss your vision and make it reality.
+                        </p>
+                    </div>
+
+                    {/* GitHub Card */}
+                    <div className="col-span-1 row-span-1 bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Github className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">GitHub</h3>
+                        <a href="https://github.com/AlbinXXX" target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:opacity-80 transition-opacity">
+                            @AlbinXXX
+                        </a>
+                    </div>
+
+                    {/* LinkedIn Card */}
+                    <div className="col-span-1 row-span-1 bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Linkedin className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">LinkedIn</h3>
+                        <a href="https://linkedin.com/in/albin-rushiti" target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:opacity-80 transition-opacity">
+                            albin-rushiti
+                        </a>
+                    </div>
+
+                    {/* Available Card */}
+                    <div className="col-span-1 row-span-1 bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Clock className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">Available</h3>
+                        <p className="text-white/80 text-sm">Currently accepting new projects</p>
+                    </div>
+
+                    {/* What to Include Card */}
+                    <div className="col-span-3 row-span-1 bg-black/90 border border-primary/20 rounded-2xl p-6 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <h3 className="text-white font-semibold text-lg mb-4">What to Include</h3>
+                        <ul className="text-white/80 text-sm space-y-2 text-left">
+                            <li>• Brief description of your project</li>
+                            <li>• Timeline and budget (if known)</li>
+                            <li>• Any specific requirements or technologies</li>
+                            <li>• How you heard about my work</li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Right side - Contact Form */}
+                <div className="bg-black/90 border border-primary/20 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300">
+                    <h2 className="text-white font-bold text-2xl mb-3 text-center">Send a Message</h2>
+                    <p className="text-white/80 text-sm mb-8 text-center">
+                        Fill out the form below and I'll get back to you as soon as possible.
+                    </p>
+                    <ContactForm />
+                </div>
+            </div>
+
+            {/* Mobile/Tablet Layout: Stacked - Full width */}
+            <div className="lg:hidden space-y-6 max-w-4xl mx-auto">
+                {/* Contact Form First on Mobile */}
+                <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 hover:border-primary/50 transition-all duration-300">
+                    <h2 className="text-white font-bold text-xl mb-3 text-center">Send a Message</h2>
+                    <p className="text-white/80 text-sm mb-6 text-center">
+                        Fill out the form below and I'll get back to you as soon as possible.
+                    </p>
                     <ContactForm />
                 </div>
 
-                <div className="card card-email">
-                    <Mail className="card-icon" />
-                    <h3 className="card-title">Email</h3>
-                    <p className="card-description mt-2">
-                        Response within 24 hours
-                    </p>
+                {/* Contact Cards Grid - Mobile */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Email Card */}
+                    <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Mail className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">Email</h3>
+                        <p className="text-white/80 text-sm">Response within 24 hours</p>
+                    </div>
+
+                    {/* Location Card */}
+                    <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <MapPin className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">Location</h3>
+                        <p className="text-white/80 text-sm">North Macedonia, Europe</p>
+                        <p className="text-white/80 text-sm mt-1">Remote worldwide</p>
+                    </div>
+
+                    {/* GitHub Card */}
+                    <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Github className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">GitHub</h3>
+                        <a href="https://github.com/AlbinXXX" target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:opacity-80 transition-opacity">
+                            @AlbinXXX
+                        </a>
+                    </div>
+
+                    {/* LinkedIn Card */}
+                    <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                        <Linkedin className="w-8 h-8 text-primary mb-3" />
+                        <h3 className="text-white font-semibold text-lg mb-2">LinkedIn</h3>
+                        <a href="https://linkedin.com/in/albin-rushiti" target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:opacity-80 transition-opacity">
+                            albin-rushiti
+                        </a>
+                    </div>
                 </div>
 
-                <div className="card card-location">
-                    <MapPin className="card-icon" />
-                    <h3 className="card-title">Location</h3>
-                    <p className="card-description">North Macedonia, Europe</p>
-                    <p className="card-description mt-2">
-                        Remote worldwide
-                    </p>
-                </div>
-
-                <div className="card card-large">
-                    <Clock className="card-icon-large" />
-                    <h3 className="card-title-large">Let's Connect</h3>
-                    <p className="card-description-large">
+                {/* Let's Connect Card - Mobile */}
+                <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                    <Clock className="w-12 h-12 text-primary mb-4" />
+                    <h3 className="text-white font-bold text-xl mb-3">Let's Connect</h3>
+                    <p className="text-white/80 text-base">
                         I'm always excited to work on new projects and meet interesting people. 
                         Let's discuss your vision and make it reality.
                     </p>
                 </div>
 
-                <div className="card card-github">
-                    <Github className="card-icon" />
-                    <h3 className="card-title">GitHub</h3>
-                    <p className="card-description">
-                        <a href="https://github.com/AlbinXXX" target="_blank" rel="noopener noreferrer" className="card-link">
-                            @AlbinXXX
-                        </a>
-                    </p>
+                {/* Available Card - Mobile */}
+                <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 flex flex-col items-center justify-center text-center hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                    <Clock className="w-8 h-8 text-primary mb-3" />
+                    <h3 className="text-white font-semibold text-lg mb-2">Available</h3>
+                    <p className="text-white/80 text-sm">Currently accepting new projects</p>
                 </div>
 
-                <div className="card card-linkedin">
-                    <Linkedin className="card-icon" />
-                    <h3 className="card-title">LinkedIn</h3>
-                    <p className="card-description">
-                        <a href="https://linkedin.com/in/albin-rushiti" target="_blank" rel="noopener noreferrer" className="card-link">
-                            albin-rushiti
-                        </a>
-                    </p>
-                </div>
-
-                <div className="card card-availability">
-                    <Clock className="card-icon" />
-                    <h3 className="card-title">Available</h3>
-                    <p className="card-description">
-                        Currently accepting new projects
-                    </p>
-                </div>
-
-                <div className="card card-info">
-                    <h3 className="card-title" style={{ marginBottom: '12px' }}>What to Include</h3>
-                    <ul className="text-xs text-white space-y-1" style={{ textAlign: 'left' }}>
+                {/* What to Include Card - Mobile */}
+                <div className="bg-black/90 border border-primary/20 rounded-2xl p-6 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300">
+                    <h3 className="text-white font-semibold text-lg mb-4">What to Include</h3>
+                    <ul className="text-white/80 text-sm space-y-2 text-left">
                         <li>• Brief description of your project</li>
                         <li>• Timeline and budget (if known)</li>
                         <li>• Any specific requirements or technologies</li>
