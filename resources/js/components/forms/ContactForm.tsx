@@ -37,18 +37,42 @@ export function ContactForm({ className }: ContactFormProps) {
         mutationFn: async (data: ContactFormData) => {
             return new Promise((resolve, reject) => {
                 router.post('/contact', data, {
-                    onSuccess: () => resolve(data),
-                    onError: (errors) => reject(errors),
+                    onSuccess: (page) => {
+                        console.log('Contact form success:', page);
+                        resolve(data);
+                    },
+                    onError: (errors) => {
+                        console.error('Contact form validation errors:', errors);
+                        reject(errors);
+                    },
+                    onFinish: () => {
+                        console.log('Contact form request finished');
+                    }
                 });
             });
         },
         onSuccess: () => {
-            toast.success('Message sent successfully! We\'ll get back to you soon.');
+            toast.success('Message sent successfully! I\'ll get back to you soon.');
             reset();
         },
         onError: (error) => {
             console.error('Contact form error:', error);
-            toast.error('Failed to send message. Please try again.');
+            // Check if it's a validation error or server error
+            if (typeof error === 'object' && error !== null && 'message' in error) {
+                toast.error(`Error: ${(error as Error).message}`);
+            } else if (typeof error === 'object' && error !== null) {
+                // Handle validation errors
+                try {
+                    const errorMessages = Object.values(error as unknown as Record<string, string[]>)
+                        .flat()
+                        .join(', ');
+                    toast.error(`Validation error: ${errorMessages}`);
+                } catch {
+                    toast.error('Failed to send message. Please try again.');
+                }
+            } else {
+                toast.error('Failed to send message. Please try again.');
+            }
         },
     });
 

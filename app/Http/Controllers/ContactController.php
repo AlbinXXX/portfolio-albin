@@ -29,6 +29,19 @@ class ContactController extends Controller
                 ->withInput();
         }
 
+        // Log the attempt
+        \Log::info('Contact form submission attempt', [
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'mail_config' => [
+                'mailer' => config('mail.default'),
+                'host' => config('mail.mailers.smtp.host'),
+                'port' => config('mail.mailers.smtp.port'),
+                'from' => config('mail.from.address'),
+            ]
+        ]);
+
         try {
             Mail::send('emails.contact', [
                 'contactName' => $request->name,
@@ -49,11 +62,20 @@ class ContactController extends Controller
 
             return redirect()->back()->with('success', 'Thank you for your message! I\'ll get back to you soon.');
         } catch (\Exception $e) {
-            \Log::error('Contact form email sending failed: ' . $e->getMessage(), [
+            \Log::error('Contact form email sending failed', [
                 'name' => $request->name,
                 'email' => $request->email,
                 'subject' => $request->subject,
-                'error' => $e->getMessage(),
+                'error_message' => $e->getMessage(),
+                'error_file' => $e->getFile(),
+                'error_line' => $e->getLine(),
+                'mail_config' => [
+                    'mailer' => config('mail.default'),
+                    'host' => config('mail.mailers.smtp.host'),
+                    'port' => config('mail.mailers.smtp.port'),
+                    'username' => config('mail.mailers.smtp.username'),
+                    'from' => config('mail.from.address'),
+                ],
             ]);
             
             return redirect()->back()
