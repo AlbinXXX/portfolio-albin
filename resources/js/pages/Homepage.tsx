@@ -86,12 +86,23 @@ export default function Homepage() {
                     />
                 </div>
                 
-                <div className="relative z-20 flex items-center justify-center flex-1 px-6">
-                    <div className="flex flex-col lg:flex-row items-center justify-center gap-12 max-w-6xl mx-auto">
-                        <div className="flex-shrink-0">
+                <div className="relative z-20 flex items-center justify-center flex-1 px-6 pt-24 sm:pt-28">
+                    <div className="flex flex-col items-center justify-center gap-8 max-w-4xl mx-auto text-center">
+                        {/* Main heading first */}
+                        <div className="max-w-3xl">
+                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                                Full Stack Developer
+                            </h1>
+                            <p className="text-lg md:text-xl text-white mb-8 leading-relaxed font-mono">
+                                SELECT * FROM skills WHERE expertise = 'Laravel' AND frontend = 'React' AND experience = 'Tech Lead' AND passion &gt; 9000;
+                            </p>
+                        </div>
+
+                        {/* Smaller image below heading with spacing */}
+                        <div className="mt-8">
                             <PixelCard
                                 variant="blue"
-                                className="w-80 h-96 overflow-hidden"
+                                className="w-64 h-80 overflow-hidden mx-auto"
                                 speed={40}
                                 gap={3}
                                 colors="#e0f2fe,#7dd3fc,#0ea5e9,#ffffff"
@@ -119,60 +130,53 @@ export default function Homepage() {
                                 </div>
                             </PixelCard>
                         </div>
+                        
+                        {/* CTA buttons below image */}
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+                            <Link href="/projects">
+                                <Button size="lg" className="group">
+                                    View My Work
+                                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                                </Button>
+                            </Link>
+                            <Link href="/contact">
+                                <Button variant="outline" size="lg">
+                                    Get In Touch
+                                </Button>
+                            </Link>
+                        </div>
 
-                        <div className="flex-1 text-center lg:text-left max-w-2xl">
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent whitespace-nowrap">
-                                Full Stack Developer
-                            </h1>
-                            <p className="text-lg md:text-xl text-white mb-8 leading-relaxed font-mono">
-                                SELECT * FROM skills WHERE expertise = 'Laravel' AND frontend = 'React' AND experience = 'Tech Lead' AND passion &gt; 9000;
-                            </p>
-                            
-                            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-8">
-                                <Link href="/projects">
-                                    <Button size="lg" className="group">
-                                        View My Work
-                                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                                    </Button>
-                                </Link>
-                                <Link href="/contact">
-                                    <Button variant="outline" size="lg">
-                                        Get In Touch
-                                    </Button>
-                                </Link>
-                            </div>
-
-                            <div className="flex items-center justify-center lg:justify-start gap-4">
-                                {socialLinks.map((social) => {
-                                    const IconComponent = social.icon;
-                                    
-                                    if (social.external) {
-                                        return (
-                                            <a
-                                                key={social.name}
-                                                href={social.href}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="p-2 rounded-full hover:bg-primary/10 transition-colors"
-                                                aria-label={social.ariaLabel}
-                                            >
-                                                <IconComponent className="h-5 w-5" />
-                                            </a>
-                                        );
-                                    }
-                                    
+                        {/* Social links */}
+                        <div className="flex items-center justify-center gap-4">
+                            {socialLinks.map((social) => {
+                                const IconComponent = social.icon;
+                                
+                                if (social.external) {
                                     return (
-                                        <Link
+                                        <a
                                             key={social.name}
                                             href={social.href}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                                             aria-label={social.ariaLabel}
                                         >
                                             <IconComponent className="h-5 w-5" />
-                                        </Link>
+                                        </a>
                                     );
-                                })}
-                            </div>
+                                }
+                                
+                                return (
+                                    <Link
+                                        key={social.name}
+                                        href={social.href}
+                                        className="p-2 rounded-full hover:bg-primary/10 transition-colors"
+                                        aria-label={social.ariaLabel}
+                                    >
+                                        <IconComponent className="h-5 w-5" />
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
